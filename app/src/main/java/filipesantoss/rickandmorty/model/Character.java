@@ -30,4 +30,5 @@ public class Character {
   public int hashCode() {
     return Objects.hash(id);
   }
+
 }

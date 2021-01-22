@@ -15,8 +15,9 @@ public class CharacterRepository {
     this.characterService = characterService;
   }
 
-  public Observable<CharacterPage> list() {
-    return characterService.list()
+  public Observable<CharacterPage> list(int pageNumber) {
+    return characterService.list(pageNumber)
         .subscribeOn(Schedulers.io()); // Asynchronously perform blocking IO .
   }
+
 }
