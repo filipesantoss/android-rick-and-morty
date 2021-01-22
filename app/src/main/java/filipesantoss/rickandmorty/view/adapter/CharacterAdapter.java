@@ -6,7 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.bumptech.glide.Glide;
 import filipesantoss.rickandmorty.R;
 import filipesantoss.rickandmorty.databinding.ItemCharacterBinding;
@@ -16,14 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CharacterAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
+public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Scrollable {
 
-  private List<Character> characters = new ArrayList<>();
   private final Context context;
-  private Runnable onBottom;
+  private List<Character> characters = new ArrayList<>();
+  private Runnable bottomScrollAction;
 
   public CharacterAdapter(Context context) {
     this.context = context;
+  }
+
+  public void setCharacters(List<Character> characters) {
+    this.characters = characters;
+    notifyDataSetChanged();
   }
 
   @NonNull
@@ -35,8 +41,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-    if (!Objects.isNull(onBottom) && isLastItem(position)) {
-      onBottom.run();
+    if (!Objects.isNull(bottomScrollAction) && isLastItem(position)) {
+      bottomScrollAction.run();
     }
 
     Character character = characters.get(position);
@@ -52,20 +58,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterViewHolder> 
     return characters.size();
   }
 
-  public void setCharacters(List<Character> characters) {
-    this.characters = characters;
-    notifyDataSetChanged();
-  }
-
-  public void onBottomScroll(Runnable onBottom) {
-    this.onBottom = onBottom;
+  @Override
+  public void onBottomScroll(Runnable action) {
+    bottomScrollAction = action;
   }
 
   private boolean isLastItem(int position) {
     return position + 1 == getItemCount();
   }
 
-  public static class CharacterViewHolder extends RecyclerView.ViewHolder {
+  public static class CharacterViewHolder extends ViewHolder {
 
     private final ImageView image;
     private final TextView name;

@@ -13,13 +13,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CharacterPageViewModel extends ViewModel {
-
-  private static final int INITIAL_PAGE_NUMBER = 1;
+public class CharacterPageViewModel extends ViewModel implements Loadable {
 
   private final CharacterRepository repository;
   private final MutableLiveData<List<Character>> characters = new MutableLiveData<>();
   private CharacterPage.Pagination pagination;
+  private Runnable loadStartAction;
+  private Runnable loadFinishAction;
+
+  private static final int INITIAL_PAGE_NUMBER = 1;
 
   @ViewModelInject
   public CharacterPageViewModel(CharacterRepository repository) {
@@ -43,6 +45,10 @@ public class CharacterPageViewModel extends ViewModel {
   }
 
   private void list(Integer pageNumber) {
+    if (!Objects.isNull(loadStartAction)) {
+      loadStartAction.run();
+    }
+
     repository.list(pageNumber)
         .observeOn(AndroidSchedulers.mainThread()) // Execute on Android main thread.
         .subscribe(
@@ -52,6 +58,10 @@ public class CharacterPageViewModel extends ViewModel {
   }
 
   private void update(CharacterPage characterPage) {
+    if (!Objects.isNull(loadFinishAction)) {
+      loadFinishAction.run();
+    }
+
     Stream<Character> characters = characterPage.getCharacters().stream();
     this.pagination = characterPage.getPagination();
 
@@ -60,6 +70,16 @@ public class CharacterPageViewModel extends ViewModel {
     }
 
     this.characters.postValue(characters.collect(Collectors.toList()));
+  }
+
+  @Override
+  public void onLoadStart(Runnable action) {
+    loadStartAction = action;
+  }
+
+  @Override
+  public void onLoadFinish(Runnable action) {
+    loadFinishAction = action;
   }
 
 }
