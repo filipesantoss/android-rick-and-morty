@@ -3,8 +3,10 @@ package filipesantoss.rickandmorty.view;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
+import filipesantoss.rickandmorty.R;
 import filipesantoss.rickandmorty.databinding.ActivityCharacterPageBinding;
 import filipesantoss.rickandmorty.view.adapter.CharacterAdapter;
 import filipesantoss.rickandmorty.viewmodel.CharacterPageViewModel;
@@ -19,9 +21,8 @@ public class CharacterPageActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    ActivityCharacterPageBinding binding = ActivityCharacterPageBinding
-        .inflate(getLayoutInflater());
-    setContentView(binding.getRoot());
+    ActivityCharacterPageBinding binding = DataBindingUtil
+        .setContentView(this, R.layout.activity_character_page);
 
     viewModel = new ViewModelProvider(this).get(CharacterPageViewModel.class);
 

@@ -1,26 +1,26 @@
-package filipesantoss.rickandmorty.model;
+package filipesantoss.rickandmorty.model.page;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CharacterPage {
+public abstract class Page<T> {
 
   @SerializedName("results")
-  private List<Character> characters;
+  private List<T> items;
   @SerializedName("info")
-  private Pagination pagination;
+  private Data data;
 
-  public Pagination getPagination() {
-    return pagination;
+  public Data getData() {
+    return data;
   }
 
-  public List<Character> getCharacters() {
-    return characters;
+  public List<T> getItems() {
+    return items;
   }
 
-  public static class Pagination {
+  public static class Data {
 
     private String next;
 

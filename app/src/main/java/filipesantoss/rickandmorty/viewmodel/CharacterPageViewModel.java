@@ -5,8 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import filipesantoss.rickandmorty.model.Character;
-import filipesantoss.rickandmorty.model.CharacterPage;
-import filipesantoss.rickandmorty.repository.CharacterRepository;
+import filipesantoss.rickandmorty.model.page.CharacterPage;
+import filipesantoss.rickandmorty.model.page.Page;
 import filipesantoss.rickandmorty.repository.Repository;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import java.util.List;
@@ -18,7 +18,7 @@ public class CharacterPageViewModel extends ViewModel implements Loadable {
 
   private final Repository<CharacterPage> repository;
   private final MutableLiveData<List<Character>> characters = new MutableLiveData<>();
-  private CharacterPage.Pagination pagination;
+  private Page.Data data;
   private Runnable loadStartAction;
   private Runnable loadFinishAction;
 
@@ -38,11 +38,11 @@ public class CharacterPageViewModel extends ViewModel implements Loadable {
   }
 
   public void next() {
-    if (Objects.isNull(pagination)) {
+    if (Objects.isNull(data)) {
       return;
     }
 
-    pagination.getNextPageNumber().ifPresent(this::list);
+    data.getNextPageNumber().ifPresent(this::list);
   }
 
   private void list(Integer pageNumber) {
@@ -63,8 +63,8 @@ public class CharacterPageViewModel extends ViewModel implements Loadable {
       loadFinishAction.run();
     }
 
-    Stream<Character> characters = characterPage.getCharacters().stream();
-    this.pagination = characterPage.getPagination();
+    Stream<Character> characters = characterPage.getItems().stream();
+    this.data = characterPage.getData();
 
     if (!Objects.isNull(this.characters.getValue())) {
       characters = Stream.concat(this.characters.getValue().stream(), characters);

@@ -1,6 +1,6 @@
 package filipesantoss.rickandmorty.remote;
 
-import filipesantoss.rickandmorty.model.CharacterPage;
+import filipesantoss.rickandmorty.model.page.CharacterPage;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

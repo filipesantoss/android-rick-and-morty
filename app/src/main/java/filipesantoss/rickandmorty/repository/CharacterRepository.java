@@ -1,6 +1,6 @@
 package filipesantoss.rickandmorty.repository;
 
-import filipesantoss.rickandmorty.model.CharacterPage;
+import filipesantoss.rickandmorty.model.page.CharacterPage;
 import filipesantoss.rickandmorty.remote.CharacterService;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;

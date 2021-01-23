@@ -3,14 +3,14 @@ package filipesantoss.rickandmorty.view.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import filipesantoss.rickandmorty.R;
 import filipesantoss.rickandmorty.databinding.ItemCharacterBinding;
 import filipesantoss.rickandmorty.model.Character;
 import filipesantoss.rickandmorty.view.adapter.CharacterAdapter.CharacterViewHolder;
-import filipesantoss.rickandmorty.view.custom.LoadedImageView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,8 +29,8 @@ public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Sc
   @Override
   public CharacterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     Context context = parent.getContext();
-    ItemCharacterBinding binding = ItemCharacterBinding
-        .inflate(LayoutInflater.from(context), parent, false);
+    ItemCharacterBinding binding = DataBindingUtil
+        .inflate(LayoutInflater.from(context), R.layout.item_character, parent, false);
 
     return new CharacterViewHolder(binding, context);
   }
@@ -41,9 +41,7 @@ public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Sc
       bottomScrollAction.run();
     }
 
-    Character character = characters.get(position);
-    holder.name.setText(character.getName());
-    holder.image.setUrl(character.getImage());
+    holder.binding.setCharacter(characters.get(position));
   }
 
   @Override
@@ -62,14 +60,12 @@ public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Sc
 
   public static class CharacterViewHolder extends ViewHolder {
 
-    private final LoadedImageView image;
-    private final TextView name;
+    private final ItemCharacterBinding binding;
 
     public CharacterViewHolder(ItemCharacterBinding binding, Context context) {
       super(binding.getRoot());
-      image = binding.characterImage;
-      image.setContext(context);
-      name = binding.characterName;
+      this.binding = binding;
+      binding.characterImage.setContext(context);
     }
 
   }

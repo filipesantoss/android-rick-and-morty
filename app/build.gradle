@@ -27,8 +27,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
-        // No need to `findViewById`
-        viewBinding = true
+        dataBinding true
     }
 }
 
