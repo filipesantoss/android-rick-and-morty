@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import filipesantoss.rickandmorty.model.Character;
 import filipesantoss.rickandmorty.model.CharacterPage;
 import filipesantoss.rickandmorty.repository.CharacterRepository;
+import filipesantoss.rickandmorty.repository.Repository;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,7 @@ import java.util.stream.Stream;
 
 public class CharacterPageViewModel extends ViewModel implements Loadable {
 
-  private final CharacterRepository repository;
+  private final Repository<CharacterPage> repository;
   private final MutableLiveData<List<Character>> characters = new MutableLiveData<>();
   private CharacterPage.Pagination pagination;
   private Runnable loadStartAction;
@@ -24,7 +25,7 @@ public class CharacterPageViewModel extends ViewModel implements Loadable {
   private static final int INITIAL_PAGE_NUMBER = 1;
 
   @ViewModelInject
-  public CharacterPageViewModel(CharacterRepository repository) {
+  public CharacterPageViewModel(Repository<CharacterPage> repository) {
     this.repository = repository;
   }
 

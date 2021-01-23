@@ -25,7 +25,7 @@ public class CharacterPageActivity extends AppCompatActivity {
 
     viewModel = new ViewModelProvider(this).get(CharacterPageViewModel.class);
 
-    CharacterAdapter adapter = new CharacterAdapter(this);
+    CharacterAdapter adapter = new CharacterAdapter();
     adapter.onBottomScroll(viewModel::next);
 
     binding.characterList.setAdapter(adapter);

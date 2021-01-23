@@ -1,0 +1,7 @@
+<resources>
+  <declare-styleable name="LoadedImageView">
+    <attr format="string" name="url" />
+    <attr format="reference" name="placeholder" />
+    <attr format="reference" name="error" />
+  </declare-styleable>
+</resources>
