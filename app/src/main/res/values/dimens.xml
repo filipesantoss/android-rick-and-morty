@@ -3,5 +3,6 @@
   <dimen name="spacing">8dp</dimen>
   <dimen name="spacing_small">4dp</dimen>
   <dimen name="spacing_large">16dp</dimen>
-  <dimen name="character_avatar_size">150dp</dimen>
+  <dimen name="small_character_avatar_size">150dp</dimen>
+  <dimen name="character_avatar_size">350dp</dimen>
 </resources>

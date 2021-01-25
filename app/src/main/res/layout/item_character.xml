@@ -27,8 +27,8 @@
 
       <filipesantoss.rickandmorty.view.custom.LoadedImageView
         android:id="@+id/character_image"
-        android:layout_width="@dimen/character_avatar_size"
-        android:layout_height="@dimen/character_avatar_size"
+        android:layout_width="@dimen/small_character_avatar_size"
+        android:layout_height="@dimen/small_character_avatar_size"
         android:layout_marginTop="@dimen/spacing_small"
         android:layout_marginBottom="@dimen/spacing_small"
         android:layout_marginHorizontal="@dimen/spacing"

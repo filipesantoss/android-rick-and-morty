@@ -31,10 +31,8 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:spanCount="@integer/characters_per_row">
-
-    </androidx.recyclerview.widget.RecyclerView>
+      app:spanCount="@integer/characters_per_row" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
 
+</layout>

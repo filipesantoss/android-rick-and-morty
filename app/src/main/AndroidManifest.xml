@@ -11,8 +11,7 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.RickAndMorty">
 
-    <activity
-      android:name=".view.EpisodeListActivity">
+    <activity android:name=".view.EpisodeListActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -20,8 +19,13 @@
     </activity>
 
     <activity
-      android:label="@string/label_characters"
+      android:label="@string/label_character_details"
       android:name=".view.CharacterListActivity" />
+
+    <activity
+      android:label="@string/label_character_details"
+      android:name=".view.CharacterDetailsActivity" />
+
   </application>
 
   <uses-permission android:name="android.permission.INTERNET" />
