@@ -18,12 +18,11 @@
         android:layout_marginTop="@dimen/small_spacing"
         android:layout_marginBottom="@dimen/small_spacing"
         android:layout_marginHorizontal="@dimen/spacing"
-        android:fontFamily="monospace"
         android:text="@{character.name}"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/character_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/character_image" />
 
       <filipesantoss.rickandmorty.view.custom.LoadedImageView
@@ -36,8 +35,8 @@
         android:contentDescription="@string/description_character_image"
         app:error="@drawable/error_item_character"
         app:layout_constraintBottom_toTopOf="@+id/character_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:placeholder="@drawable/placeholder_item_character"
         app:url="@{character.image}" />

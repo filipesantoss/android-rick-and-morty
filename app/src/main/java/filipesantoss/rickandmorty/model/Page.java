@@ -1,11 +1,11 @@
-package filipesantoss.rickandmorty.model.page;
+package filipesantoss.rickandmorty.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class Page<T> {
+public class Page<T extends Model> {
 
   @SerializedName("results")
   private List<T> items;

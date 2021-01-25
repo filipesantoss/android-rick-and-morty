@@ -1,12 +1,13 @@
 package filipesantoss.rickandmorty.repository;
 
-import filipesantoss.rickandmorty.model.page.CharacterPage;
+import filipesantoss.rickandmorty.model.Character;
+import filipesantoss.rickandmorty.model.Page;
 import filipesantoss.rickandmorty.remote.CharacterService;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import javax.inject.Inject;
 
-public class CharacterRepository implements Repository<CharacterPage> {
+public class CharacterRepository implements Repository<Page<Character>> {
 
   private final CharacterService characterService;
 
@@ -16,7 +17,7 @@ public class CharacterRepository implements Repository<CharacterPage> {
   }
 
   @Override
-  public Observable<CharacterPage> list(int pageNumber) {
+  public Observable<Page<Character>> list(int pageNumber) {
     return characterService.list(pageNumber)
         .subscribeOn(Schedulers.io()); // Asynchronously perform blocking IO .
   }

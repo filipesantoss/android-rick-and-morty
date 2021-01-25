@@ -7,25 +7,25 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 import filipesantoss.rickandmorty.R;
-import filipesantoss.rickandmorty.databinding.ActivityCharacterPageBinding;
+import filipesantoss.rickandmorty.databinding.ActivityCharacterListBinding;
 import filipesantoss.rickandmorty.view.adapter.CharacterAdapter;
 import filipesantoss.rickandmorty.view.util.ScrollListener;
-import filipesantoss.rickandmorty.viewmodel.CharacterPageViewModel;
+import filipesantoss.rickandmorty.viewmodel.CharacterListViewModel;
 import java.util.Objects;
 
 @AndroidEntryPoint
-public class CharacterPageActivity extends AppCompatActivity {
+public class CharacterListActivity extends AppCompatActivity {
 
-  private ActivityCharacterPageBinding binding;
-  private CharacterPageViewModel viewModel;
+  private ActivityCharacterListBinding binding;
+  private CharacterListViewModel viewModel;
   private ScrollListener scrollListener;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_character_page);
-    viewModel = new ViewModelProvider(this).get(CharacterPageViewModel.class);
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_character_list);
+    viewModel = new ViewModelProvider(this).get(CharacterListViewModel.class);
 
     CharacterAdapter adapter = new CharacterAdapter();
     binding.characterList.setAdapter(adapter);
