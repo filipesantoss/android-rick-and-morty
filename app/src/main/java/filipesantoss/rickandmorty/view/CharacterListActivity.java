@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 import filipesantoss.rickandmorty.R;
 import filipesantoss.rickandmorty.databinding.ActivityCharacterListBinding;
 import filipesantoss.rickandmorty.view.adapter.CharacterAdapter;
-import filipesantoss.rickandmorty.view.util.ScrollListener;
 import filipesantoss.rickandmorty.viewmodel.CharacterListViewModel;
 import java.util.Objects;
 
@@ -18,7 +17,8 @@ public class CharacterListActivity extends AppCompatActivity {
 
   private ActivityCharacterListBinding binding;
   private CharacterListViewModel viewModel;
-  private ScrollListener scrollListener;
+
+  public static final String CHARACTER_ID_LIST = "filipesantoss.rickandmorty.CHARACTER_ID_LIST";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +30,12 @@ public class CharacterListActivity extends AppCompatActivity {
     CharacterAdapter adapter = new CharacterAdapter();
     binding.characterList.setAdapter(adapter);
 
-    scrollListener = new ScrollListener();
-    scrollListener.onBottom(viewModel::next);
-    binding.characterList.addOnScrollListener(scrollListener);
-
-    viewModel.onLoadStart(() -> binding.characterLoading.setVisibility(View.VISIBLE));
-    viewModel.onLoadFinish(() -> binding.characterLoading.setVisibility(View.GONE));
+    viewModel.onLoadStart(this::onLoadStart);
+    viewModel.onLoadFinish(this::onLoadFinished);
     viewModel.getCharacters().observe(this, adapter::setCharacters);
 
     if (Objects.isNull(savedInstanceState)) {
-      viewModel.list();
+      viewModel.list(getIntent().getIntegerArrayListExtra(CHARACTER_ID_LIST));
     }
   }
 
@@ -47,7 +43,16 @@ public class CharacterListActivity extends AppCompatActivity {
   protected void onDestroy() {
     super.onDestroy();
     viewModel.getCharacters().removeObservers(this);
-    binding.characterList.removeOnScrollListener(scrollListener);
+  }
+
+  private void onLoadStart() {
+    binding.characterLoading.setVisibility(View.VISIBLE);
+    binding.characterList.setVisibility(View.GONE);
+  }
+
+  private void onLoadFinished() {
+    binding.characterLoading.setVisibility(View.GONE);
+    binding.characterList.setVisibility(View.VISIBLE);
   }
 
 }

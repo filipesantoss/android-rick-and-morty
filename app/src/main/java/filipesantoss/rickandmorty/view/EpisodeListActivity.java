@@ -1,7 +1,9 @@
 package filipesantoss.rickandmorty.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,6 +13,8 @@ import filipesantoss.rickandmorty.databinding.ActivityEpisodeListBinding;
 import filipesantoss.rickandmorty.view.adapter.EpisodeAdapter;
 import filipesantoss.rickandmorty.view.util.ScrollListener;
 import filipesantoss.rickandmorty.viewmodel.EpisodeListViewModel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @AndroidEntryPoint
@@ -27,7 +31,7 @@ public class EpisodeListActivity extends AppCompatActivity {
     binding = DataBindingUtil.setContentView(this, R.layout.activity_episode_list);
     viewModel = new ViewModelProvider(this).get(EpisodeListViewModel.class);
 
-    EpisodeAdapter adapter = new EpisodeAdapter();
+    EpisodeAdapter adapter = new EpisodeAdapter(this::onEpisodeClick);
     binding.episodeList.setAdapter(adapter);
 
     scrollListener = new ScrollListener();
@@ -48,6 +52,13 @@ public class EpisodeListActivity extends AppCompatActivity {
     super.onDestroy();
     viewModel.getEpisodes().removeObservers(this);
     binding.episodeList.removeOnScrollListener(scrollListener);
+  }
+
+  private OnClickListener onEpisodeClick(List<Integer> ids) {
+    Intent intent = new Intent(this, CharacterListActivity.class)
+        .putIntegerArrayListExtra(CharacterListActivity.CHARACTER_ID_LIST, new ArrayList<>(ids));
+
+    return view -> startActivity(intent);
   }
 
 }

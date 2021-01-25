@@ -1,14 +1,14 @@
 package filipesantoss.rickandmorty.remote;
 
 import filipesantoss.rickandmorty.model.Character;
-import filipesantoss.rickandmorty.model.Page;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.List;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface CharacterService {
 
-  @GET("character")
-  Observable<Page<Character>> list(@Query("page") int pageNumber);
+  @GET("character/{ids}")
+  Observable<List<Character>> list(@Path(value = "ids") String ids);
 
 }

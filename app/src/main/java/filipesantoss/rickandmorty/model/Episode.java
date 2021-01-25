@@ -2,6 +2,7 @@ package filipesantoss.rickandmorty.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Episode extends Model {
 
@@ -24,4 +25,13 @@ public class Episode extends Model {
   public String getNumber() {
     return number;
   }
+
+  public List<Integer> getCharacterIds() {
+    return characters.stream().map(this::getCharacterId).collect(Collectors.toList());
+  }
+
+  private int getCharacterId(String characterUrl) {
+    return Integer.parseInt(characterUrl.substring(characterUrl.lastIndexOf("/") + 1));
+  }
+
 }

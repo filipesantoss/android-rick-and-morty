@@ -12,7 +12,6 @@
     android:theme="@style/Theme.RickAndMorty">
 
     <activity
-      android:label="@string/label_episodes"
       android:name=".view.EpisodeListActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
