@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import filipesantoss.rickandmorty.R;
 import filipesantoss.rickandmorty.databinding.ItemCharacterBinding;
@@ -15,10 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Scrollable {
+public class CharacterAdapter extends Adapter<CharacterViewHolder> {
 
   private List<Character> characters = new ArrayList<>();
-  private Runnable bottomScrollAction;
 
   public void setCharacters(List<Character> characters) {
     this.characters = characters;
@@ -37,25 +38,12 @@ public class CharacterAdapter extends Adapter<CharacterViewHolder> implements Sc
 
   @Override
   public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-    if (!Objects.isNull(bottomScrollAction) && isLastItem(position)) {
-      bottomScrollAction.run();
-    }
-
     holder.binding.setCharacter(characters.get(position));
   }
 
   @Override
   public int getItemCount() {
     return characters.size();
-  }
-
-  @Override
-  public void onBottomScroll(Runnable action) {
-    bottomScrollAction = action;
-  }
-
-  private boolean isLastItem(int position) {
-    return position + 1 == getItemCount();
   }
 
   public static class CharacterViewHolder extends ViewHolder {

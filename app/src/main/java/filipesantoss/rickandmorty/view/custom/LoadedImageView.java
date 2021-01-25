@@ -46,7 +46,6 @@ public class LoadedImageView extends AppCompatImageView {
         .obtainStyledAttributes(attrs, R.styleable.LoadedImageView, defStyle, 0);
 
     url = styledAttributes.getString(R.styleable.LoadedImageView_url);
-
     placeholder = getDrawable(styledAttributes, R.styleable.LoadedImageView_placeholder);
     error = getDrawable(styledAttributes, R.styleable.LoadedImageView_error);
 
